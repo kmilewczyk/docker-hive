@@ -1,15 +1,11 @@
-= DISCLAIMER
+# DISCLAIMER
 
 DO NOT USE THIS IN ANY PRODUCTION ENVIRONMENT. Whole setup is put together on stitches and is not a great example of secure environment. This is student work for student project. Please keep it in mind.
 
 Also this is a fork of https://github.com/big-data-europe/docker-hive.
 
-= References:
 
-* Introduction to Presto - https://www.youtube.com/watch?v=G0Igp_mhB68
-
-
-= Containers
+# Containers
 
 * namenode - essentially master for hdfs. [Documentation](https://cwiki.apache.org/confluence/display/HADOOP2/NameNode).
 * datanode - essentially worker for hdfs. Stores data. [Documentation](https://cwiki.apache.org/confluence/display/HADOOP2/DataNode)
@@ -18,7 +14,7 @@ Also this is a fork of https://github.com/big-data-europe/docker-hive.
 * hive-metastore-postgresql - postgres configured for hive metastore
 
 
-= Exercises notes
+# Exercises notes
 
 Use Hue GUI on localhost:8888 for any interaction with hive and hdfs.
 Information below is hands-on presentation of the running parts of a docker-compose.
@@ -44,7 +40,7 @@ I would recommend getting some text editor in `hive-server`. It's jessie based i
 HDFS is accessible from any container. Type `sudo docker-compose exec hive-server hadoop fs <rest of commands>` to get access.
 
 
-= GUI
+# GUI
 
 I opted in to Hue GUI, which I integrated to have access to Hive, HDFS and metastore. Note that Hue can throw 500s at the login screen. If this happens restart the hue container. There is a health check done to prevent this in docker compose file.
 
