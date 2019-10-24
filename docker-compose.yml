@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 
 services:
   namenode:
@@ -41,11 +41,22 @@ services:
       - "9083:9083"
   hive-metastore-postgresql:
     image: bde2020/hive-metastore-postgresql:2.3.0
-  presto-coordinator:
-    image: shawnzhu/prestodb:0.181
+    volumes:
+    - ./conf/metastore-init.sql:/docker-entrypoint-initdb.d/init.sql
+  hue:
+    image: gethue/hue:4.5.0
     ports:
-      - "8080:8080"
-
+    - "8888:8888"
+    depends_on:
+    - "hive-metastore-postgresql"
+    volumes:
+    - ./conf/hue.ini:/usr/share/hue/desktop/conf/hue-overrides.ini
+    healthcheck:
+      test: ["CMD-SHELL", "! curl -s -o /dev/null -w %{http_code} localhost:8888/hue/accounts/login?next=/ | grep 5.."]
+      interval: 30s
+      timeout: 10s
+      retries: 1
+      start_period: 60s
 volumes:
   namenode:
   datanode:
